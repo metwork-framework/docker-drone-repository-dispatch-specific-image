@@ -29,7 +29,6 @@ for REPO in $(echo "${PLUGIN_REPOSITORIES}" |sed 's/,/ /g'); do
     fi
     echo "Creating repository-dispatch event on REPO_NAME=${REPO_NAME} and BRANCH=${BRANCH_NAME}..."
 
-    export GITHUB_TOKEN=token_bidon
     curl -H "Accept: application/vnd.github.everest-preview+son" -H "Authorization: token ${GITHUB_TOKEN}" --request POST --data '{"event_type": "metwork-trigger", "client_payload": {"branch": "${BRANCH_NAME}"}}' https://api.github.com/repos/metwork-framework/${REPO_NAME}/dispatches
 
     if test $? -ne 0; then
