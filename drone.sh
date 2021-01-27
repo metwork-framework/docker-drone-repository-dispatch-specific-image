@@ -28,8 +28,8 @@ for REPO in $(echo "${PLUGIN_REPOSITORIES}" |sed 's/,/ /g'); do
         BRANCH_NAME=master
     fi
     echo "Creating repository-dispatch event on REPO_NAME=${REPO_NAME} and BRANCH=${BRANCH_NAME}..."
-
-    curl -H "Accept: application/vnd.github.everest-preview+son" -H "Authorization: token ${GITHUB_TOKEN}" --request POST --data '{"event_type": "metwork-trigger", "client_payload": {"branch": "${BRANCH_NAME}"}}' https://api.github.com/repos/metwork-framework/${REPO_NAME}/dispatches
+    echo '{"event_type": "metwork-trigger", "client_payload": {"branch": "'${BRANCH_NAME}'"}}"' > fic.json
+    curl -H "Accept: application/vnd.github.everest-preview+son" -H "Authorization: token ${GITHUB_TOKEN}" --request POST --data-binary @fic.json https://api.github.com/repos/metwork-framework/${REPO_NAME}/dispatches
 
     if test $? -ne 0; then
         echo "ERROR during curl action"
