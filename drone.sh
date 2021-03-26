@@ -16,10 +16,10 @@ if test "${GITHUB_TOKEN:-}" = ""; then
   exit 1
 fi
 
-#if test -f .drone_downstream_bypass; then
-#    echo "downstream bypass"
-#    exit 0
-#fi
+if test -f .drone_downstream_bypass; then
+    echo "downstream bypass"
+    exit 0
+fi
 
 for REPO in $(echo "${PLUGIN_REPOSITORIES}" |sed 's/,/ /g'); do
     REPO_NAME=$(echo "${REPO}" |awk -F '@' '{print $1;}')
