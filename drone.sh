@@ -28,7 +28,7 @@ for REPO in $(echo "${PLUGIN_REPOSITORIES}" |sed 's/,/ /g'); do
         BRANCH_NAME=master
     fi
     echo "Creating repository-dispatch event on REPO_NAME=${REPO_NAME} and BRANCH=${BRANCH_NAME}..."
-    echo '{"event_type": "metwork-trigger", "client_payload": {"branch": "'${BRANCH_NAME}'"}}' > fic.json
+    echo '{"event_type": "metwork-trigger-${BRANCH_NAME}", "client_payload": {"branch": "'${BRANCH_NAME}'"}}' > fic.json
     cat fic.json
     curl -H "Accept: application/vnd.github.everest-preview+son" -H "Authorization: token ${GITHUB_TOKEN}" --request POST --data-binary @fic.json https://api.github.com/repos/${REPO_NAME}/dispatches
 
